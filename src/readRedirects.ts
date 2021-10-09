@@ -15,6 +15,7 @@ async function listRedirects(path: string) {
 
     const siteRedirects: Redirect[] = [];
     for (const line of lines) {
+        if (line.length === 0) continue;
         const parts = line.split(',');
         if (parts.length < 2) throw new Error(`Invalid entry in ${path}: "${line}"`);
 
