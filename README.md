@@ -3,8 +3,10 @@
 This node.js application redirects domains to the configured urls.
 
 ## Configuring
-First, set the port used for the application in an `.env` file in the root of
-the project. An example file can be found in `.env.example`.
+Start by configuring the server in the `.env` file in the root of the project.
+An example file can be found in `.env.example`.
+The optional [Plausible](https://plausible.io/) endpoint can be used to track
+the traffic to the different urls.
 
 To configure the redirects, create a new file with the domain name to redirect
 in the `redirects` folder. An example configuration file can be found in

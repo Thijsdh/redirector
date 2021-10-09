@@ -1,10 +1,12 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import express from 'express';
+import { logPageview } from './analytics';
 import readRedirects from './readRedirects';
 
 (async () => {
     const app = express();
+    app.enable('trust proxy');
 
     const redirects = await readRedirects();
 
@@ -15,7 +17,9 @@ import readRedirects from './readRedirects';
         for (const redirect of redirects[host]) {
             if (!redirect.path.test(req.path)) continue;
 
-            return res.redirect(redirect.status || 302, redirect.url);
+            res.redirect(redirect.status || 302, redirect.url);
+            await logPageview(req);
+            return;
         }
 
         return res.sendStatus(404);
