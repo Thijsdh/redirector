@@ -18,7 +18,7 @@ import readRedirects from './readRedirects';
             if (!redirect.path.test(req.path)) continue;
 
             res.redirect(redirect.status || 302, redirect.url);
-            await logPageview(req);
+            await logPageview(req, redirect.trackingName);
             return;
         }
 

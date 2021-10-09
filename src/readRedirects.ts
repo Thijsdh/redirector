@@ -5,6 +5,7 @@ type Redirect = {
     path: RegExp;
     url: string;
     status?: number;
+    trackingName?: string;
 }
 
 type RedirectDB = { [domain: string]: Redirect[] };
@@ -22,7 +23,8 @@ async function listRedirects(path: string) {
         const redirect: Redirect = {
             path: new RegExp(`^${parts[0]}$`),
             url: parts[1],
-            status: parseInt(parts[2])
+            status: parseInt(parts[2]),
+            trackingName: parts[3]
         };
         siteRedirects.push(redirect);
     }

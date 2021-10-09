@@ -12,7 +12,7 @@ To configure the redirects, create a new file with the domain name to redirect
 in the `redirects` folder. An example configuration file can be found in
 `redirects/example.com.csv`. The configuration format is as follows:
 ```
-path,redirect url,HTTP status (optional)
+path,redirect url,HTTP status (optional),tracked path name (optional)
 ```
 
 The paths provided may contain RegEx expressions.

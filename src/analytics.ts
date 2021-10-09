@@ -1,14 +1,14 @@
 import { Request } from 'express';
 import axios from 'axios';
 
-export async function logPageview(req: Request) {
+export async function logPageview(req: Request, trackingName?: string) {
     const plausibleUrl = process.env.PLAUSIBLE_ENDPOINT;
     // Plausible URL is not defined, disable analytics
     if (typeof plausibleUrl === 'undefined') return;
 
     const data = {
         name: 'pageview',
-        url: `${req.protocol}://${req.headers.host}${req.originalUrl}`,
+        url: `${req.protocol}://${req.headers.host}${trackingName || req.originalUrl}`,
         domain: req.headers.host,
         referrer: req.get('Referer')
     }
