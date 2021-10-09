@@ -2,3 +2,4 @@
 node_modules/
 dist/
 redirects/*.csv
+!redirects/example.com.csv
