@@ -12,3 +12,5 @@ in the `redirects` folder. An example configuration file can be found in
 ```
 path,redirect url,HTTP status (optional)
 ```
+
+The paths provided may contain RegEx expressions.

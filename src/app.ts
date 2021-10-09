@@ -12,11 +12,13 @@ import readRedirects from './readRedirects';
         const host = req.headers.host;
         if (!host || !(host in redirects)) return res.sendStatus(404);
 
-        const urls = redirects[host];
-        if (!(req.path in urls)) return res.sendStatus(404);
+        for (const redirect of redirects[host]) {
+            if (!redirect.path.test(req.path)) continue;
 
-        const redirect = urls[req.path];
-        res.redirect(redirect.status || 302, redirect.url);
+            return res.redirect(redirect.status || 302, redirect.url);
+        }
+
+        return res.sendStatus(404);
     });
 
     const port = process.env.PORT || 3000;

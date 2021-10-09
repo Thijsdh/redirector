@@ -2,27 +2,28 @@ import fs from 'fs/promises';
 import path from 'path';
 
 type Redirect = {
+    path: RegExp;
     url: string;
     status?: number;
 }
 
-type SiteRedirects = { [path: string]: Redirect };
-type RedirectDB = { [domain: string]: SiteRedirects };
+type RedirectDB = { [domain: string]: Redirect[] };
 
 async function listRedirects(path: string) {
     const fileContent = await fs.readFile(path);
     const lines = fileContent.toString().split(/(?:\r\n|\r|\n)/g);
 
-    const siteRedirects: SiteRedirects = {};
+    const siteRedirects: Redirect[] = [];
     for (const line of lines) {
         const parts = line.split(',');
         if (parts.length < 2) throw new Error(`Invalid entry in ${path}: "${line}"`);
 
         const redirect: Redirect = {
+            path: new RegExp(`^${parts[0]}$`),
             url: parts[1],
             status: parseInt(parts[2])
         };
-        siteRedirects[parts[0]] = redirect;
+        siteRedirects.push(redirect);
     }
     return siteRedirects;
 }
