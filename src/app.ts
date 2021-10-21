@@ -19,7 +19,7 @@ import readRedirects from './readRedirects';
 
             res.redirect(redirect.status || 302, redirect.url);
             await logPageview(req, redirect.trackingName);
-            console.log(`Redirect: ${req.ip} - ${req.path} - ${redirect.url}`);
+            console.log(`Redirect: ${req.ip} - ${req.protocol}://${req.headers.host}${req.originalUrl} - ${redirect.url}`);
             return;
         }
 
